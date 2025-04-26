@@ -21,6 +21,7 @@ dict_months = {
 def index(request):
     return HttpResponse("Welcome to the challenge of the all months!")
 
+
 def months_by_int(request, month):
     months = list(dict_months.keys())
     
@@ -31,9 +32,10 @@ def months_by_int(request, month):
     redirect_path = reverse("months_by_str", args=[redirect_month])
     return HttpResponseRedirect(redirect_path)
     
+    
 def months_by_str(request, month):
     try:
         message_month = dict_months[month]
-        return HttpResponse(message_month)
+        return HttpResponse(f"<h1>{message_month}</h1> ")
     except:
-        return HttpResponseNotFound("Invalid month!")
+        return HttpResponseNotFound("<h1>Invalid month!</h1>")
