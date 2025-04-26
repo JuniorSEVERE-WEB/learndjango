@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponsePermanentRedirect
 # Create your views here.
 
 dict_months = {
@@ -21,7 +21,14 @@ def index(request):
     return HttpResponse("Welcome to the challenge of the all months!")
 
 def months_by_int(request, month):
-    return HttpResponse(month)
+    months = list(dict_months.keys())
+    
+    if month > len(months):
+        return HttpResponseNotFound("Invalid number! must be between 1 and 12!")
+    
+    redirect_month = months[month - 1]
+    
+    return HttpResponsePermanentRedirect("/monthsChallenge/" + redirect_month)
     
 def months_by_str(request, month):
     try:
