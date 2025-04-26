@@ -19,7 +19,19 @@ dict_months = {
 }
 
 def index(request):
-    return HttpResponse("Welcome to the challenge of the all months!")
+    list_items = ""
+    months = list(dict_months.keys())
+    
+    for month in months:
+        month_path = reverse("months_by_str", args=[month])
+        list_items += f"<li><a href=\"{month_path}\">{month.capitalize()}</a></li>"
+        
+    response_data = f"<ul>{list_items}</ul>"  
+    return HttpResponse(response_data)  
+        
+        
+        
+   
 
 
 def months_by_int(request, month):
