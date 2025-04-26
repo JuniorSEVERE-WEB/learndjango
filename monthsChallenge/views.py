@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponsePermanentRedirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 
 dict_months = {
@@ -27,8 +28,8 @@ def months_by_int(request, month):
         return HttpResponseNotFound("Invalid number! must be between 1 and 12!")
     
     redirect_month = months[month - 1]
-    
-    return HttpResponsePermanentRedirect("/monthsChallenge/" + redirect_month)
+    redirect_path = reverse("months_by_str", args=[redirect_month])
+    return HttpResponseRedirect(redirect_path)
     
 def months_by_str(request, month):
     try:
